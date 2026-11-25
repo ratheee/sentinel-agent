@@ -123,6 +123,10 @@ To reset the demo project after a run: `git checkout examples/`.
 
 ## How it works
 
+![Sentinel architecture](docs/architecture.png)
+
+(Also available as [PDF](docs/architecture.pdf) and [SVG](docs/architecture.svg).)
+
 ```
              ┌──────────────────────────────────────────────────────────┐
   goal ───▶  │ PERCEIVE  workspace snapshot · platform · git state      │

@@ -1,0 +1,177 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="960" viewBox="0 0 1600 960" font-family="Segoe UI, Arial, sans-serif">
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#334155"/>
+    </marker>
+    <marker id="arrRed" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b45309"/>
+    </marker>
+    <style>
+      .title { font-size: 30px; font-weight: 700; fill: #0f172a; }
+      .sub { font-size: 15px; fill: #475569; }
+      .h { font-size: 17px; font-weight: 700; fill: #0f172a; }
+      .t { font-size: 13.5px; fill: #1e293b; }
+      .s { font-size: 12.5px; fill: #475569; }
+      .lbl { font-size: 12.5px; fill: #334155; font-style: italic; }
+      .panel { font-size: 15px; font-weight: 700; fill: #1e3a8a; letter-spacing: 0.5px; }
+      .edge { stroke: #334155; stroke-width: 2; fill: none; marker-end: url(#arr); }
+      .dash { stroke: #64748b; stroke-width: 1.8; fill: none; stroke-dasharray: 6 5; marker-end: url(#arr); }
+    </style>
+  </defs>
+
+  <rect width="1600" height="960" fill="#ffffff"/>
+
+  <!-- Title -->
+  <text x="800" y="44" text-anchor="middle" class="title">Sentinel: Autonomous Goal-Driven AI Agent - Architecture</text>
+  <text x="800" y="70" text-anchor="middle" class="sub">perceive → reason → act → observe, with independent verification, long-term memory and safety guardrails</text>
+
+  <!-- User / CLI -->
+  <rect x="600" y="92" width="400" height="74" rx="12" fill="#f1f5f9" stroke="#475569" stroke-width="1.8"/>
+  <text x="800" y="120" text-anchor="middle" class="h">User / CLI  (cli.py, reporting.py)</text>
+  <text x="800" y="142" text-anchor="middle" class="t">sentinel run "&lt;goal&gt;"  ·  chat  ·  memory</text>
+  <text x="800" y="159" text-anchor="middle" class="s">live progress log, approval prompts, answers to ask_human</text>
+
+  <path d="M740,166 L740,208" class="edge"/>
+  <text x="732" y="192" text-anchor="end" class="lbl">goal</text>
+  <path d="M860,208 L860,166" class="edge"/>
+  <text x="868" y="192" class="lbl">result · approvals · questions</text>
+
+  <!-- Agent core panel -->
+  <rect x="470" y="210" width="690" height="550" rx="16" fill="#eff6ff" stroke="#1e3a8a" stroke-width="2"/>
+  <text x="490" y="238" class="panel">AGENT CORE  (agent.py)</text>
+
+  <!-- REASON -->
+  <rect x="510" y="270" width="250" height="100" rx="10" fill="#ede9fe" stroke="#6d28d9" stroke-width="2"/>
+  <text x="635" y="298" text-anchor="middle" class="h">2. REASON</text>
+  <text x="635" y="320" text-anchor="middle" class="t">LLM reads history, keeps a plan</text>
+  <text x="635" y="338" text-anchor="middle" class="t">(update_plan), chooses next tools</text>
+  <text x="635" y="358" text-anchor="middle" class="s">prompts.py · actor prompt</text>
+
+  <!-- ACT -->
+  <rect x="870" y="270" width="250" height="100" rx="10" fill="#fee2e2" stroke="#b91c1c" stroke-width="2"/>
+  <text x="995" y="298" text-anchor="middle" class="h">3. ACT</text>
+  <text x="995" y="320" text-anchor="middle" class="t">validate input → guardrails</text>
+  <text x="995" y="338" text-anchor="middle" class="t">→ approval → run tool</text>
+  <text x="995" y="358" text-anchor="middle" class="s">errors returned to the LLM</text>
+
+  <!-- PERCEIVE -->
+  <rect x="510" y="450" width="250" height="100" rx="10" fill="#dcfce7" stroke="#15803d" stroke-width="2"/>
+  <text x="635" y="478" text-anchor="middle" class="h">1. PERCEIVE</text>
+  <text x="635" y="500" text-anchor="middle" class="t">workspace snapshot, platform,</text>
+  <text x="635" y="518" text-anchor="middle" class="t">git state + recalled memories</text>
+  <text x="635" y="538" text-anchor="middle" class="s">perception.py</text>
+
+  <!-- OBSERVE -->
+  <rect x="870" y="450" width="250" height="100" rx="10" fill="#e0f2fe" stroke="#0369a1" stroke-width="2"/>
+  <text x="995" y="478" text-anchor="middle" class="h">4. OBSERVE</text>
+  <text x="995" y="500" text-anchor="middle" class="t">tool results + detected file changes</text>
+  <text x="995" y="518" text-anchor="middle" class="t">3 failed steps → "step back, re-plan"</text>
+  <text x="995" y="538" text-anchor="middle" class="s">WorkspaceWatcher</text>
+
+  <!-- loop arrows -->
+  <path d="M635,450 L635,372" class="edge"/>
+  <path d="M760,320 L868,320" class="edge"/>
+  <path d="M995,370 L995,448" class="edge"/>
+  <path d="M870,470 L763,372" class="edge"/>
+  <text x="808" y="430" text-anchor="end" class="lbl">loop until done</text>
+
+  <!-- VERIFY -->
+  <rect x="870" y="630" width="250" height="100" rx="10" fill="#fef9c3" stroke="#a16207" stroke-width="2"/>
+  <text x="995" y="658" text-anchor="middle" class="h">5. VERIFY</text>
+  <text x="995" y="680" text-anchor="middle" class="t">independent LLM reviewer checks</text>
+  <text x="995" y="698" text-anchor="middle" class="t">claim + evidence vs. action log</text>
+  <text x="995" y="718" text-anchor="middle" class="s">structured verdict: accept / gaps</text>
+
+  <!-- REFLECT -->
+  <rect x="510" y="630" width="250" height="100" rx="10" fill="#fae8ff" stroke="#a21caf" stroke-width="2"/>
+  <text x="635" y="658" text-anchor="middle" class="h">6. REFLECT</text>
+  <text x="635" y="680" text-anchor="middle" class="t">LLM extracts lessons from the run;</text>
+  <text x="635" y="698" text-anchor="middle" class="t">episode + lessons saved</text>
+  <text x="635" y="718" text-anchor="middle" class="s">post-run self-improvement</text>
+
+  <path d="M995,550 L995,628" class="edge"/>
+  <text x="987" y="596" text-anchor="end" class="lbl">agent calls finish()</text>
+  <path d="M870,680 L762,680" class="edge"/>
+  <text x="816" y="672" text-anchor="middle" class="lbl">accepted</text>
+  <path d="M1120,690 C1150,690 1150,520 1122,515" stroke="#b45309" stroke-width="2" fill="none" marker-end="url(#arrRed)"/>
+  <text x="1132" y="588" text-anchor="end" class="lbl" style="fill:#b45309">rejected:</text>
+  <text x="1132" y="604" text-anchor="end" class="lbl" style="fill:#b45309">keep working</text>
+
+  <!-- LLM layer -->
+  <rect x="40" y="210" width="380" height="340" rx="16" fill="#f5f3ff" stroke="#6d28d9" stroke-width="2"/>
+  <text x="60" y="238" class="panel" style="fill:#5b21b6">LLM LAYER  (pluggable)</text>
+  <rect x="62" y="258" width="336" height="96" rx="10" fill="#ffffff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="230" y="284" text-anchor="middle" class="h">Anthropic Claude</text>
+  <text x="230" y="305" text-anchor="middle" class="t">llm.py · Messages API, tool use,</text>
+  <text x="230" y="323" text-anchor="middle" class="t">adaptive thinking, prompt caching,</text>
+  <text x="230" y="341" text-anchor="middle" class="t">structured outputs, cost tracking</text>
+  <rect x="62" y="372" width="336" height="112" rx="10" fill="#ffffff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="230" y="398" text-anchor="middle" class="h">Gemini · Groq · Ollama (free)</text>
+  <text x="230" y="419" text-anchor="middle" class="t">openai_compat.py · OpenAI-style API</text>
+  <text x="230" y="437" text-anchor="middle" class="t">message/tool format translation,</text>
+  <text x="230" y="455" text-anchor="middle" class="t">auto model pick, rate-limit retries,</text>
+  <text x="230" y="473" text-anchor="middle" class="t">fallback to next model when busy</text>
+  <text x="230" y="526" text-anchor="middle" class="s">used by REASON, VERIFY and REFLECT</text>
+
+  <path d="M420,305 L508,305" class="edge"/>
+  <path d="M508,340 L420,340" class="edge"/>
+  <text x="464" y="296" text-anchor="middle" class="lbl">context</text>
+  <text x="464" y="358" text-anchor="middle" class="lbl">decisions</text>
+
+  <!-- Guardrails -->
+  <rect x="1200" y="210" width="360" height="200" rx="16" fill="#fff7ed" stroke="#c2410c" stroke-width="2"/>
+  <text x="1220" y="238" class="panel" style="fill:#9a3412">GUARDRAILS  (guardrails.py)</text>
+  <text x="1222" y="268" class="t">• workspace sandbox (no path escapes)</text>
+  <text x="1222" y="292" class="t">• dangerous-command blocklist</text>
+  <text x="1222" y="316" class="t">• secrets scrubbed from child processes</text>
+  <text x="1222" y="340" class="t">• SSRF guard on web fetches</text>
+  <text x="1222" y="364" class="t">• approval policy: auto / risky / all</text>
+  <text x="1222" y="388" class="t">• step + cost budgets</text>
+
+  <path d="M1120,300 L1198,300" class="edge"/>
+
+  <!-- Tools -->
+  <rect x="1200" y="440" width="360" height="290" rx="16" fill="#fef2f2" stroke="#b91c1c" stroke-width="2"/>
+  <text x="1220" y="468" class="panel" style="fill:#991b1b">TOOLS  (tools/)</text>
+  <text x="1222" y="498" class="h" style="font-size:14.5px">files.py</text>
+  <text x="1222" y="518" class="t">list · read · search · write · edit</text>
+  <text x="1222" y="548" class="h" style="font-size:14.5px">execution.py</text>
+  <text x="1222" y="568" class="t">run_command · run_python</text>
+  <text x="1222" y="598" class="h" style="font-size:14.5px">web.py</text>
+  <text x="1222" y="618" class="t">fetch_url · web_search (Claude only)</text>
+  <text x="1222" y="648" class="h" style="font-size:14.5px">control.py</text>
+  <text x="1222" y="668" class="t">update_plan · remember · recall</text>
+  <text x="1222" y="688" class="t">ask_human · finish</text>
+  <text x="1222" y="716" class="s">registry.py: schemas, risk levels, validation</text>
+
+  <path d="M1380,410 L1380,438" class="edge"/>
+
+  <!-- Bottom row -->
+  <rect x="470" y="810" width="330" height="110" rx="12" fill="#fdf4ff" stroke="#a21caf" stroke-width="1.8"/>
+  <text x="635" y="838" text-anchor="middle" class="h">Long-term memory  (memory.py)</text>
+  <text x="635" y="860" text-anchor="middle" class="t">.sentinel/memory.jsonl</text>
+  <text x="635" y="880" text-anchor="middle" class="t">facts · lessons · episodes</text>
+  <text x="635" y="900" text-anchor="middle" class="s">TF-IDF retrieval, persists across runs</text>
+
+  <rect x="830" y="810" width="330" height="110" rx="12" fill="#f8fafc" stroke="#64748b" stroke-width="1.8"/>
+  <text x="995" y="838" text-anchor="middle" class="h">Run traces</text>
+  <text x="995" y="860" text-anchor="middle" class="t">.sentinel/runs/&lt;run-id&gt;.jsonl</text>
+  <text x="995" y="880" text-anchor="middle" class="t">every thought, tool call, result,</text>
+  <text x="995" y="900" text-anchor="middle" class="t">verdict and cost (audit log)</text>
+
+  <rect x="1200" y="810" width="360" height="110" rx="12" fill="#ecfdf5" stroke="#15803d" stroke-width="1.8"/>
+  <text x="1380" y="838" text-anchor="middle" class="h">Environment / Workspace</text>
+  <text x="1380" y="860" text-anchor="middle" class="t">project files · shell · Python</text>
+  <text x="1380" y="880" text-anchor="middle" class="t">public web pages / APIs</text>
+  <text x="1380" y="900" text-anchor="middle" class="s">the world the agent perceives and changes</text>
+
+  <path d="M635,730 L635,808" class="edge"/>
+  <text x="643" y="776" class="lbl">store lessons</text>
+  <path d="M490,810 L490,500 L508,500" class="dash"/>
+  <text x="482" y="660" text-anchor="end" class="lbl" transform="rotate(-90 482 660)">recall</text>
+  <path d="M995,762 L995,808" class="dash"/>
+  <text x="1003" y="792" class="lbl">logs everything</text>
+  <path d="M1380,730 L1380,808" class="edge"/>
+  <path d="M1222,920 L1222,945 L455,945 L455,530 L508,530" class="dash"/>
+  <text x="840" y="937" text-anchor="middle" class="lbl">observations (files, command output, page content)</text>
+</svg>
